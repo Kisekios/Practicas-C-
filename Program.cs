@@ -14,19 +14,19 @@ namespace ToDo
             do
             {
                 menuSelected = ShowMainMenu();
-                if (menuSelected == 1)
+                if ((Menu)menuSelected == Menu.add)
                 {
                     ShowMenuAdd();
                 }
-                else if (menuSelected == 2)
+                else if ((Menu)menuSelected == Menu.Remove)
                 {
                     ShowMenuRemove();
                 }
-                else if (menuSelected == 3)
+                else if ((Menu)menuSelected == Menu.List)
                 {
                     ShowMenuTaskList();
                 }
-            } while (menuSelected != 4);
+            } while ((Menu)menuSelected != Menu.Exit);
         }
         /// <summary>
         /// Show the main menu 
@@ -34,7 +34,7 @@ namespace ToDo
         /// <returns>Returns option indicated by user</returns>
         public static int ShowMainMenu()
         {
-            Console.WriteLine("----------------------------------------");
+            Console.WriteLine("\n----------------------------------------");
             Console.WriteLine("Ingrese la opción a realizar: ");
             Console.WriteLine("1. Nueva tarea");
             Console.WriteLine("2. Remover tarea");
@@ -52,11 +52,7 @@ namespace ToDo
             {
                 Console.WriteLine("Ingrese el número de la tarea a remover: ");
                 // Show current taks
-                for (int i = 0; i < TaskList.Count; i++)
-                {
-                    Console.WriteLine((i + 1) + ". " + TaskList[i]);
-                }
-                Console.WriteLine("----------------------------------------");
+                ShowTaskList();
 
                 string line = Console.ReadLine();
                 // Remove one position
@@ -98,13 +94,23 @@ namespace ToDo
             } 
             else
             {
-                Console.WriteLine("----------------------------------------");
+                ShowTaskList();
+            }
+        }
+        public static void ShowTaskList()
+        {
+            Console.WriteLine("----------------------------------------");
                 for (int i = 0; i < TaskList.Count; i++)
                 {
                     Console.WriteLine((i + 1) + ". " + TaskList[i]);
                 }
                 Console.WriteLine("----------------------------------------");
-            }
         }
+    }
+    public enum Menu{
+        add = 1,
+        Remove = 2,
+        List = 3,
+        Exit = 4
     }
 }
